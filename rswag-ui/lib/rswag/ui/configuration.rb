@@ -3,8 +3,6 @@ require 'rack'
 
 module Rswag
   module Ui
-
-
     class Configuration
       attr_reader :template_locations
       attr_accessor :basic_auth_enabled
