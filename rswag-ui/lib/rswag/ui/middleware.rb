@@ -8,7 +8,7 @@ module Rswag
       end
 
       def call(env)
-        env['current_user'] = Thread.current[:current_user]
+        Thread.current[:current_user]
 
         if base_path?(env)
           redirect_uri = env['SCRIPT_NAME'].chomp('/') + '/index.html'

@@ -51,7 +51,7 @@ module Rswag
         json = self.as_json
         # Override the urls values too apply condition
         json['urls'] = self[:urls].select do |endpoint|
-          endpoint[:condition].nil? || endpoint[:condition].call(env['current_user'])
+          endpoint[:condition].nil? || endpoint[:condition].call(Thread.current[:current_user])
         end
         json.to_json
       end

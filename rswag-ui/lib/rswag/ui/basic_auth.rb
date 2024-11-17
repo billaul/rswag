@@ -19,7 +19,7 @@ module Rswag
       def env_matching_path(env)
         path = base_path(env['PATH_INFO'])
         Rswag::Ui.config.config_object[:urls].find do |endpoint|
-          base_path(endpoint[:url]) == path && (endpoint[:condition].nil? || endpoint[:condition].call(env['current_user']))
+          base_path(endpoint[:url]) == path && (endpoint[:condition].nil? || endpoint[:condition].call(Thread.current[:current_user]))
         end
       end
 
