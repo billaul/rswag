@@ -32,7 +32,7 @@ module Rswag
 
       def openapi_endpoint(url, name, condition = nil)
         @config_object[:urls] ||= []
-        @config_object[:urls] << { url: url, name: name, condition: condition}
+        @config_object[:urls] << { url: url, name: name, condition: condition }
       end
 
       def basic_auth_credentials(username, password)
@@ -51,7 +51,7 @@ module Rswag
         json = self.as_json
         # Override the urls values too apply condition
         json['urls'] = self[:urls].select do |endpoint|
-          endpoint[:condition].nil? || endpoint[:condition].call
+          endpoint[:condition].nil? || endpoint[:condition].call(env['current_user'])
         end
         json.to_json
       end

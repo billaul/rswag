@@ -1,5 +1,6 @@
 require 'rswag/ui/middleware'
 require 'rswag/ui/basic_auth'
+require 'devise'
 
 module Rswag
   module Ui
