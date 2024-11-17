@@ -20,7 +20,7 @@ module Rswag
           File.expand_path('../index.erb', __FILE__)
         ]
         @assets_root = File.expand_path('../../../../node_modules/swagger-ui-dist', __FILE__)
-        @config_object = {}
+        @config_object = Rswag::Ui::ConfigObject.new
         @oauth_config_object = {}
         @basic_auth_enabled = false
       end
@@ -30,15 +30,14 @@ module Rswag
         openapi_endpoint(url, name)
       end
 
-      def openapi_endpoint(url, name)
+      def openapi_endpoint(url, name, condition = nil)
         @config_object[:urls] ||= []
-        @config_object[:urls] << { url: url, name: name }
+        @config_object[:urls] << { url: url, name: name, condition: condition}
       end
 
       def basic_auth_credentials(username, password)
         @config_object[:basic_auth] = { username: username, password: password }
       end
-
       # rubocop:disable Naming/AccessorMethodName
       def get_binding
         binding
