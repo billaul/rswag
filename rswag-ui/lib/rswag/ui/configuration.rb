@@ -1,5 +1,6 @@
 require 'ostruct'
 require 'rack'
+require 'rswag/ui/config_object'
 
 module Rswag
   module Ui
