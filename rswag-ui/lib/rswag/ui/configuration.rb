@@ -3,6 +3,8 @@ require 'rack'
 
 module Rswag
   module Ui
+
+
     class Configuration
       attr_reader :template_locations
       attr_accessor :basic_auth_enabled
@@ -20,7 +22,7 @@ module Rswag
           File.expand_path('../index.erb', __FILE__)
         ]
         @assets_root = File.expand_path('../../../../node_modules/swagger-ui-dist', __FILE__)
-        @config_object = Rswag::Ui::ConfigObject.new
+        @config_object = ConfigObject.new
         @oauth_config_object = {}
         @basic_auth_enabled = false
       end
@@ -43,6 +45,19 @@ module Rswag
         binding
       end
       # rubocop:enable Naming/AccessorMethodName
+    end
+
+    class ConfigObject < Hash
+
+      def to_json
+        json = self.as_json
+        # Override the urls values too apply condition
+        json['urls'] = self[:urls].select do |endpoint|
+          endpoint.condition.nil? || endpoint.condition.call
+        end
+        json.to_json
+      end
+
     end
   end
 end
