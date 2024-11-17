@@ -1,4 +1,5 @@
 require 'rswag/ui/configuration'
+require 'rswag/ui/config_object§'
 
 require_relative '../../spec_helper'
 
